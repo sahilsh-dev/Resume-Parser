@@ -27,8 +27,7 @@ def create_excelsheet():
     workbook = openpyxl.Workbook()
     sheet = workbook.active
     
-    # headers = ["Name", "Email", "Phone", "Education", "Work Experience"]
-    headers = ['Name', 'Email', 'Phone']
+    headers = ["Name", "Email", "Phone", "Education", "Work Experience"]
     sheet.append(headers)
     return sheet, workbook
 
@@ -39,5 +38,12 @@ def add_data_to_excelsheet(sheet, workbook, resumes):
         name = parsed_data['name']['first'] + ' ' + parsed_data['name']['middle']  + parsed_data['name']['last']
         email = '\n'.join(parsed_data['emails'])
         phone = '\n'.join(parsed_data['phone_numbers'])
-        sheet.append([name, email, phone])
+
+        education, work_exp = '', ''
+        for ed in parsed_data['education']:
+            education += ed['accreditation']['education'] + ', ' + ed['organization'] + '\n'
+        for work in parsed_data['work_experience']:
+            work_exp += work['job_title'] + ', ' + work['organization'] + '\n'
+
+        sheet.append([name, email, phone, education, work_exp])
     workbook.save("resumes.xlsx")

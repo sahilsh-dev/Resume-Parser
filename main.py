@@ -49,7 +49,7 @@ if excel_created:
     st.balloons()
     st.write('')
     st.write('''
-        Note: The excel file contains the extracted information from the resumes. Thanks for visiting! \n
+        The excel file contains the extracted information from the resumes. Thanks for visiting! \n
         Made with 💗 by Sahil Sharma       
     ''')
     os.remove("resumes.xlsx")
