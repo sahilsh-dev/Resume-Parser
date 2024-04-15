@@ -1,4 +1,7 @@
+import os
 import streamlit as st
+import pandas as pd
+from st_aggrid import AgGrid
 import utils 
 
 
@@ -30,7 +33,11 @@ if uploaded_files:
         excel_created = True
         
 st.write('')
+
 if excel_created:
+    parsed_data = pd.read_excel("resumes.xlsx")
+    AgGrid(parsed_data, height=200)
+    st.write('')
     with open("resumes.xlsx", "rb") as file:
         st.download_button(
             label="Download excel file",
@@ -39,3 +46,10 @@ if excel_created:
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         )
 
+    st.balloons()
+    st.write('')
+    st.write('''
+        Note: The excel file contains the extracted information from the resumes. Thanks for visiting! \n
+        Made with 💗 by Sahil Sharma       
+    ''')
+    os.remove("resumes.xlsx")
