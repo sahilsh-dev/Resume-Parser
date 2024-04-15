@@ -1,4 +1,5 @@
 import streamlit as st
+from utils import get_parsed_resumes
 
 
 st.title('Resume Parser App')
@@ -14,5 +15,7 @@ uploaded_files = st.file_uploader('Choose files', accept_multiple_files=True, ty
 st.write('')
 
 if uploaded_files:
-    uploaded_files
     st.success('Files uploaded successfully', icon="✅")
+    resumes = get_parsed_resumes(uploaded_files)
+    resumes    
+    
